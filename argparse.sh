@@ -59,7 +59,7 @@ parse_args() {
                 shift # past the flag argument
             else
                 [[ -z "$2" || "$2" == --* ]] && display_error "Missing value for argument --$key"
-                export "$key"="$2"
+                local "$key"="$2"
                 shift # past argument
                 shift # past value
             fi
@@ -77,7 +77,7 @@ parse_args() {
     # Set defaults for any unset arguments
     for arg in "${!ARG_PROPERTIES[@]}"; do
         arg_name="${arg%%,*}" # Extract argument name
-        [[ -z "${!arg_name}" ]] && export "$arg_name"="${ARG_PROPERTIES[$arg_name,default]}"
+        [[ -z "${!arg_name}" ]] && local "$arg_name"="${ARG_PROPERTIES[$arg_name,default]}"
     done
 }
 
